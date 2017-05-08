@@ -27,18 +27,23 @@ And of course a housing to put it in. A 3D printed diffuser grid. And some wires
 
 ## The first prototype
 
+![First prototype](https://raw.githubusercontent.com/NielsLeenheer/Pixel/master/photos/prototype-1.jpg)
+
 The first prototype is basically just a ceilinglamp which I bought in a DIY store. I ripped out all the existing stuff, 
 so I am left with just the bare housing. On the back I glued a breadboard on which I placed the components and behind the
 glass I placed the LED matrix. Initially I placed the matrix directly behind the glass which caused the pixels to be round 
-not connected. Later I 3d printed a custom diffuser grid that clips on the LED matrix, which makes sure the pixels will be 
-square.
+not connected. Later I printed a custom diffuser grid on a 3D printer that clips on the LED matrix, which makes sure the pixels will be square.
 
 ## The second prototype
 
+![Second prototype](https://raw.githubusercontent.com/NielsLeenheer/Pixel/master/photos/prototype-2.jpg)
+
 I'm currently working on a second prototype, still based on a ceilinglamp housing. The second prototype uses a custom 
 designed PCB based on the latest configuration of the first prototype. The PCB will be much smaller than the breadboard,
-so it will fit better in the housing. Also because there a less random wires sticking out, it will look less like a bomb. 
+so it will fit better in the housing. Also because there a less random wires sticking out, it will look less like a bomb. Also I've replaced the 3D printed diffuser and replaced it with a laser-cut one that first snugly in the housing. 
 
 ## Stuff to work on
 
-Maybe build a custom housing using lasercutting.
+- An even smaller PCB that is not larger than the NodeMCU (design is done, currently at the fab). 
+- Improve the laser-cut diffuser, by using thicker, black plexiglas. And optionally place matte transparent plexiglas windows in the holes of the diffuser.
+- Maybe build a custom housing using lasercutting.
