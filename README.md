@@ -1,4 +1,7 @@
-# Pixel
+<h1>
+<img src=https://raw.githubusercontent.com/NielsLeenheer/Pixel/master/source/PixelServer/data/web/icon2x.png width=36 height=36 align="absmiddle"> Pixel
+</h1>
+
 A pixel art display for displaying monsters and notifications. But mostly monsters. Created using a NodeMCU and a 8x8 LED matrix, some code and a lot of hacks.
 This project was created just to have some fun an experiment with the NodeMCU to create a connected pixel art display.
 
