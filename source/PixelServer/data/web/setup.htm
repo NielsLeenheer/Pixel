@@ -1,0 +1,342 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>PIXEL</title>
+        <meta charset="utf8">
+
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="apple-touch-icon" href="icon.png">
+        <link rel="apple-touch-icon" href="icon2x.png" sizes="120x120">
+
+        <script src="jquery.js"></script>
+        <script src="ui.js"></script>
+
+        <style>
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+            html, body {
+                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                background: #111;
+                margin: 0;
+                padding: 0;
+            }
+            button, input {
+                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            }
+            svg {
+                margin-left:-0.6vw;
+                margin-top:-0.4vw;
+            }
+
+            :focus {
+                outline: none;
+            }
+            
+            body {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100vw;
+              height: 100vh;
+            }
+            
+            div.item {
+              color: #aaa;
+              padding: 1em;
+              flex: 0;
+            }
+            div.header {
+              display: flex;
+              align-items: center;
+              margin-top: 1em;
+            }
+            
+            div.header img {
+              width: 2em;
+              height: 2em;
+              margin-right: 0.4em;
+            }
+            div.networks {
+              flex: 1 1 auto;
+              display: flex;
+              flex-direction: column;
+            }
+            
+            #networks {
+              margin: 0 -1em -1em; padding: 1em;
+              background: #333;
+              overflow: hidden;
+              overflow-y: auto;
+            }
+            
+            #networks li {
+              list-style-type: none;
+              margin: 0; padding: 1em;
+              color: #fff;
+              
+              display: flex;
+            }
+            
+            #networks li.selected {
+              background: #18ad00;
+              border-radius: .4em;
+            }
+            
+            #networks li svg {
+              display: inline-block;
+              width: 1.2em;
+              height: 1.2em;
+              fill: currentColor;
+            }
+            
+            #networks li svg.check {
+              visibility: hidden;
+              margin-right: 0.6em;
+            }
+            
+            #networks li.selected svg.check {
+              visibility: visible;
+            }
+            
+            #networks li svg.wifi {
+              margin-left: auto;
+            }
+            
+            label {
+              display: block;
+              padding-top: 1em;
+              padding-bottom: 1em;
+            }
+            
+            svg.refresh {
+              width: 1em;
+              fill: #ddd;
+              animation: rotating 2s linear infinite;
+              margin-left: 0.3em;
+              position: relative;
+              top: 0.1em;
+            }
+            
+            form {
+              display: flex;  
+            }
+            
+            input[name=password] {
+              font-size: 1.2em;
+              width: 100%;
+              padding: 0.5em 0.5em;
+              
+            }
+            
+            
+            div.button {
+              text-align: right;
+            }
+            button {
+              background: #18ad00;
+              border-radius: .4em;
+              border: none;
+              font-size: 1em;
+              padding: 0.5em 1em;
+              color: #fff;
+            }
+            button svg {
+              fill: #fff;
+              display: inline-block;
+              width: 1.2em;
+              vertical-align: middle;
+            }
+            
+            
+            .wifi path, .wifi circle {
+              transition: fill 0.4s ease;
+            }
+            [data-signal=none] circle.weak, [data-signal=none] path.normal, [data-signal=none] path.good, [data-signal=none] path.strong {
+              fill: rgba(0,0,0,0.4);
+            }
+            [data-signal=weak] path.normal, [data-signal=weak] path.good, [data-signal=weak] path.strong {
+              fill: rgba(0,0,0,0.4);
+            }
+            [data-signal=normal] path.good, [data-signal=normal] path.strong {
+              fill: rgba(0,0,0,0.4);
+            }
+            [data-signal=good] path.strong {
+              fill: rgba(0,0,0,0.4);
+            }
+
+            div.restart {
+              text-align: center;
+            }
+
+        </style>
+    </head>
+
+    <body class="">
+        <div class='item header'>
+          <img src="data:image/png;base64,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"> PIXEL
+        </div>
+        <div class='item networks'>
+          <label>
+            Select a network:
+<svg class='refresh' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+<path d='M 16 4 C 10.888652 4 6.6170137 7.16109 4.875 11.625 L 6.71875 12.375 C 8.1767363 8.63891 11.711348 6 16 6 C 19.240366 6 22.133605 7.5895584 23.9375 10 L 20 10 L 20 12 L 26 12 L 27 12 L 27 11 L 27 5 L 25 5 L 25 8.09375 C 22.810028 5.580832 19.57094 4 16 4 z M 25.28125 19.625 C 23.823264 23.36109 20.288652 26 16 26 C 12.723524 26 9.8434309 24.388336 8.03125 22 L 12 22 L 12 20 L 6 20 L 5 20 L 5 21 L 5 27 L 7 27 L 7 23.90625 C 9.1885848 26.385518 12.394607 28 16 28 C 21.111348 28 25.382986 24.83891 27.125 20.375 L 25.28125 19.625 z' />
+</svg>          
+          </label>
+          <ul id="networks"></ul>
+        </div>
+        
+        <div class='item password'>
+          <label>Enter the password:</label>
+          <form>
+            <input type="password" name="password" value="">
+          </form>
+        </div>
+        
+        <div class='item button'>
+          <button>
+            Connect
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'>
+                <path d='M22.567,4.73l-1.795-1.219c-0.495-0.334-1.173-0.205-1.507,0.287l-8.787,12.959l-4.039-4.039 c-0.422-0.42-1.11-0.42-1.533,0l-1.533,1.536c-0.424,0.423-0.424,1.11,0,1.534L9.582,22c0.349,0.347,0.895,0.615,1.387,0.615 s0.988-0.31,1.307-0.774L22.856,6.235C23.191,5.743,23.062,5.066,22.567,4.73z'/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class='item restart' style="display: none;">
+          <svg class='refresh' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+          <path d='M 16 4 C 10.888652 4 6.6170137 7.16109 4.875 11.625 L 6.71875 12.375 C 8.1767363 8.63891 11.711348 6 16 6 C 19.240366 6 22.133605 7.5895584 23.9375 10 L 20 10 L 20 12 L 26 12 L 27 12 L 27 11 L 27 5 L 25 5 L 25 8.09375 C 22.810028 5.580832 19.57094 4 16 4 z M 25.28125 19.625 C 23.823264 23.36109 20.288652 26 16 26 C 12.723524 26 9.8434309 24.388336 8.03125 22 L 12 22 L 12 20 L 6 20 L 5 20 L 5 21 L 5 27 L 7 27 L 7 23.90625 C 9.1885848 26.385518 12.394607 28 16 28 C 21.111348 28 25.382986 24.83891 27.125 20.375 L 25.28125 19.625 z' />
+          </svg>          
+          PIXEL is being restarted
+        </div>
+
+        <script>
+            jQuery(document).ready(function($){
+
+                scanForNetworks();
+                
+                
+                $("#networks").on("mousedown touchstart", 'li', function() {
+                  currentNetwork = this.dataset.name;
+                  
+                  $("#networks .selected").removeClass('selected');
+                  $(this).addClass('selected');
+                });
+                
+                $("button").on("mousedown touchstart", function() {
+                  $("input[name=password]").blur();
+    
+                  var password = $("input[name=password]").val();
+                  
+                  $("div.item").hide();
+                  $("div.restart").show();
+
+                  $.ajax({
+                      url: "/config?ssid=" + currentNetwork + "&password=" + password,
+                  }).done(function() {
+                    $.ajax({
+                        url: "/reset",
+                    }).done(function() {
+                      window.setInterval(function() {
+                        $.ajax({
+                            url: "/ping",
+                        }).done(function(r) {
+                          if (r == "pong") {
+                            window.location = "index.htm";
+                          }
+                        });
+                      }, 3 * 1000);
+                    });
+                  });
+                });
+            });
+
+
+            currentNetwork = "";
+            
+            foundNetworks = [];
+
+                function scanForNetworks() {
+                  $.ajax({
+                      url: "/scan",
+                  }).done(function(networks) {
+                      updateNetworkList(networks);
+                      window.setTimeout(scanForNetworks, 5 * 1000);
+                  });
+                }
+                
+                function updateNetworkList(networks) {
+                  for (var i = 0; i < networks.length; i++) {
+                    if (!foundNetworks.includes(networks[i].ssid)) {
+                      foundNetworks.push(networks[i].ssid);
+                    }
+                  }
+                  
+                  var strength = {};
+                  
+                  for (var i = 0; i < networks.length; i++) {
+                    if (typeof strength[networks[i].ssid] == 'undefined') {
+                      strength[networks[i].ssid] = networks[i].rssi;
+                    } else {
+                      strength[networks[i].ssid] = Math.max(strength[networks[i].ssid], networks[i].rssi);
+                    }
+                  }                  
+                  
+                  for (var i = 0; i < foundNetworks.length; i++) {
+                    var signalClass = "none";
+                    
+                    if (typeof strength[foundNetworks[i]] != 'undefined') {
+                      rssi = strength[foundNetworks[i]];
+  
+                      if (rssi > -70) {
+                        signalClass = "strong";
+                      }
+                      else if (rssi > -80) {
+                        signalClass = "good";
+                      }
+                      else if (rssi > -90) {
+                        signalClass = "normal";
+                      }
+                      else {
+                        signalClass = "weak";
+                      }
+                    }
+                      
+                    var element = $("#networks li[data-name='" + foundNetworks[i] + "']")
+                    
+                    if (element.length) {
+                      element.attr('data-signal', signalClass);
+                    }
+                    else {
+                      item  = "<li data-name='" + foundNetworks[i] + "' data-signal='" + signalClass + "'>";
+                      item += "<svg class='check' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'>";
+                      item += "<path d='M13,0.188C5.924,0.188,0.188,5.924,0.188,13S5.924,25.813,13,25.813S25.813,20.076,25.813,13 S20.076,0.188,13,0.188z M19.736,9.035l-6.871,10.132c-0.206,0.303-0.528,0.504-0.848,0.504s-0.675-0.175-0.9-0.399l-4.032-4.033 c-0.274-0.275-0.274-0.722,0-0.996l0.996-0.998c0.274-0.272,0.722-0.272,0.995,0l2.623,2.623l5.705-8.414 c0.217-0.32,0.657-0.403,0.979-0.187l1.166,0.791C19.869,8.275,19.953,8.715,19.736,9.035z'/>";
+                      item += "</svg>";
+                      item += "<span>" + foundNetworks[i] + "</span>";
+                      item += "<svg class='wifi' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'>";
+                      item += "<path class='strong' d='M13,3C8.4,3,4.3,4.8,1.2,7.7c-0.6,0.6-0.6,1.5,0,2.1s1.5,0.6,2.1,0C5.9,7.4,9.2,6,13,6s7.1,1.4,9.7,3.9 c0.6,0.6,1.5,0.6,2.1,0s0.6-1.5,0-2.1l0,0C21.7,4.8,17.6,3,13,3z'/>";
+                      item += "<path class='good' d='M13,8c-3.3,0-6.3,1.4-8.5,3.5c-0.6,0.6-0.6,1.5,0,2.1s1.5,0.6,2.1,0C8.3,12,10.5,11,13,11s4.7,1,6.3,2.7 c0.6,0.6,1.5,0.6,2.1,0s0.6-1.5,0-2.1C19.3,9.4,16.3,8,13,8z'/>";
+                      item += "<path class='normal' d='M13,13c-2,0-3.9,0.9-5.2,2.3c-0.6,0.6-0.5,1.6,0.1,2.1s1.6,0.5,2.1-0.1c0.7-0.8,1.8-1.3,3-1.3s2.3,0.5,3,1.3 c0.6,0.6,1.5,0.7,2.1,0.1s0.7-1.5,0.1-2.1C16.9,13.9,15,13,13,13z'/>";
+                      item += "<circle class='weak' cx='13' cy='20' r='1.8'/>";
+                      item += "</svg>";
+                      item += "</li>";
+                      
+                      $("#networks").append(item);
+                    }
+                    
+                  }
+                }
+
+
+        </script>
+    </body>
+</html>
