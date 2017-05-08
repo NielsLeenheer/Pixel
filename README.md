@@ -3,15 +3,14 @@
 </h1>
 
 A pixel art display for displaying monsters and notifications. But mostly monsters. Created using a NodeMCU and a 8x8 LED matrix, some code and a lot of hacks.
-This project was created just to have some fun an experiment with the NodeMCU to create a connected pixel art display.
+This project was created just to have some fun and experiment with the NodeMCU to create a connected pixel art display.
 
 ![Pixel](https://raw.githubusercontent.com/NielsLeenheer/Pixel/master/photos/main.jpg)
 
 When assembled, it sets up a custom WiFi hotspot with captive portal, which you can use to configure the Pixel. It can connect
 to any other WiFi network and has an API which can be used to display notifications. For example, I use Domoticz to track
 when my mailbox is full and it sends a nice picture of a mailbox to Pixel. When connected to the WiFi network, it also has a 
-webserver that contains a mobile web app. That app allows you to draw monsters on the display using your phone and save them in 
-Flash memory.
+webserver that contains a mobile web app. That app allows you to draw monsters on the display using your phone and save them in Flash memory.
 
 More info about this project can be found in my talk "Monsters, mailboxes and other non-sense":
 https://speakerdeck.com/nielsleenheer/monsters-brievenbussen-en-andere-onzin-at-amsterdam-university-of-applied-sciences?slide=56
@@ -43,7 +42,7 @@ not connected. Later I printed a custom diffuser grid on a 3D printer that clips
 
 I'm currently working on a second prototype, still based on a ceilinglamp housing. The second prototype uses a custom 
 designed PCB based on the latest configuration of the first prototype. The PCB will be much smaller than the breadboard,
-so it will fit better in the housing. Also because there a less random wires sticking out, it will look less like a bomb. Also I've replaced the 3D printed diffuser and replaced it with a laser-cut one that first snugly in the housing. 
+so it will fit better in the housing. Also because there a less random wires sticking out, it will look less like a bomb. Also I've replaced the 3D printed diffuser and replaced it with a laser-cut one that fits snugly in the housing. 
 
 ## Stuff to work on
 
