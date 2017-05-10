@@ -12,7 +12,7 @@ void updateBrightness(boolean restore) {
     brightnessUpdate = 5 * SECONDS;
 
     brightnessPrevious = brightness;
-    brightness = (16 - (value >> 6)) * brightnessFactor;
+    brightness = 16 + ((value >> 6) * brightnessFactor);
 
     if (brightnessPrevious != brightness) {
       Serial.print("Brightness changed from ");
